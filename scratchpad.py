@@ -1,0 +1,150 @@
+class Trie(object):
+    def __init__(self):
+        self.head = {}
+
+    def add(self, word):
+        cur = self.head
+        for ch in word:
+            if ch not in cur:
+                cur[ch] = {}
+            cur = cur[ch]
+        # * denotes the Trie has this word as item
+        # if * doesn't exist, Trie doesn't have this word but as a path to longer word
+        cur['*'] = True
+        print(self.head)
+
+    def search(self, word):
+        cur = self.head
+        for ch in word:
+            if ch not in cur:
+                return False
+            cur = cur[ch]
+
+        if '*' in cur:
+            return True
+        else:
+            return False
+
+
+dictionary = Trie()
+
+dictionary.add("hi")
+dictionary.add("hello")
+dictionary.add("sell")
+dictionary.add("seller")
+print(dictionary.search("hi"))
+print(dictionary.search("hello"))
+print(dictionary.search("hel"))
+print(dictionary.search("hey"))
+print(dictionary.search("seller"))
+
+
+def SearchForElinSortedList(lst, el):
+    if len(lst) == 0: return -1
+
+    if len(lst) == 1:
+        if el == lst[0]:
+            return 0
+        else:
+            return -1
+
+    listlen = len(lst)
+
+    l = 0
+    r = listlen - 1
+
+    while l < r:
+        mid = l + (r - l)//2
+
+        if el < lst[mid]:
+            r = mid - 1
+        elif el > lst[mid]:
+            l = mid + 1
+        elif el == lst[mid]:
+            return mid
+        else:
+            return -1
+
+    return -1
+print('----------')
+print(SearchForElinSortedList([0, 2, 4, 5, 7, 8, 9], -7))
+print(SearchForElinSortedList([-7], -7))
+
+def mergeSortedLists(left, right):
+    lenleft = len(left)
+    lenright = len(right)
+
+    lidx = 0
+    ridx = 0
+
+    mylist = []
+
+    # empty lists
+    if lenleft == 0: return right
+    if lenright == 0: return left
+
+    # single length lists
+
+    for _ in range(lenleft + lenright):
+        if lidx < lenleft and ridx < lenright:
+            # if value in left list is smaller
+            if left[lidx] <= right[ridx]:
+                mylist.append(left[lidx])
+                lidx += 1
+            else:
+                mylist.append(right[ridx])
+                ridx += 1
+        elif lidx == lenleft:
+            # copy remaining items from right list
+            mylist.append(right[ridx])
+            ridx += 1
+        elif ridx == lenright:
+            # copy remaining items from right list
+            mylist.append(left[lidx])
+            lidx += 1
+
+    return mylist
+
+
+print(mergeSortedLists([0, 3, 7, 8, 9], [1, 4]))
+
+def mergesort(lst):
+    if len(lst) <= 1: return lst
+
+    mid = len(lst)//2
+
+    left = mergesort(lst[:mid])
+    right = mergesort(lst[mid:])
+
+    return mergeSortedLists(left, right)
+
+print(mergesort([7, 1, -3, 100, 34, -8, 4, 2]))
+
+
+def listmodifier(int_list):
+    for i, j in enumerate(int_list):
+        int_list[i] *= 2
+
+# notice the original list although passed as an argument got changed by the procedure
+int_list_original = [0, 2, 3, 4]
+listmodifier(int_list_original)
+print(int_list_original)
+
+
+def reverse(list_of_chars):
+
+    left_index  = 0
+    right_index = len(list_of_chars) - 1
+
+    while left_index < right_index:
+        # Swap characters
+        list_of_chars[left_index], list_of_chars[right_index] = \
+            list_of_chars[right_index], list_of_chars[left_index]
+        # Move towards middle
+        left_index  += 1
+        right_index -= 1
+
+
+listofchars = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+reverse(listofchars)
+print(listofchars)
