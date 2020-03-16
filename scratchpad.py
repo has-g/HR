@@ -148,3 +148,52 @@ def reverse(list_of_chars):
 listofchars = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
 reverse(listofchars)
 print(listofchars)
+
+
+def SortSoredLists(l1, l2):
+    if len(l1) == 0: return l2
+    if len(l2) == 0: return l1
+
+    totallen = len(l1) + len(l2)
+
+    l = 0
+    r = 0
+    mylist = []
+
+    for i in range(totallen):
+        print(">> l = ", l, ", r = ", r)
+
+        if l >= len(l1):
+            mylist.append(l2[r])
+            r += 1
+        elif r >= len(l2):
+            mylist.append(l1[l])
+            l += 1
+        elif l1[l] <= l2[r]:
+            mylist.append(l1[l])
+            l += 1
+        elif l1[l] > l2[r]:
+            mylist.append(l2[r])
+            r += 1
+        else:
+            print("shouldn't be here: l = ", l, ", r = ", r)
+
+    return mylist
+
+print(SortSoredLists([2, 5], [1, 3, 4, 7, 10]))
+# Complexity
+# O(n)O(n) time and O(n)O(n) additional space, where nn is the number of items in the merged list.
+
+def findSum(target, L, sofar=None):
+    if sofar is None:
+        sofar = []
+    if not target:
+        print(sofar)
+        return
+    if target < 0:
+        return
+    for i,num in enumerate(L):
+        print("i = ", i, ", num = ", num, ", L = ", L)
+        return findSum(target-num, L[:i]+L[i+1:], sofar+[num])
+
+print(findSum(10, [1,3,11,123,5,7]))

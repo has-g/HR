@@ -1,6 +1,8 @@
 '''
 print numbers in a list that add up to zero
 
+BEST option = https://www.geeksforgeeks.org/find-triplets-array-whose-sum-equal-zero/
+has all 3 options of solving this - MUST SEE
 '''
 
 def sumZero(mylist):
