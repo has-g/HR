@@ -13,8 +13,59 @@ see ic_6_Fibonnaci.py
 1. what are we optimising for? Time or space?
 2. assumptions: non empty string or list
 3. Do you expect inplace or out of place manipulation
-4. assumption: delimiter = ' '
+4. assumption: delimiter = ' ' 
+5. assumption: no leading or trailing spaces?
 '''
+
+#(A)
+#BRUTE FORCE APPROACH
+# Overall = O(n) runtime, space = O(1)
+
+
+def bf_reversewords(mystr):
+    if len(mystr) <= 1: return mystr
+    # e.g. "This is a girl" o/p => "girl a is This"
+
+    # edge case of space at beginning or end of string, retain the space for later
+
+    # split the list into constituent words ['This' 'is' 'a' 'girl']
+    mywords = mystr.split()
+
+    temp = ''
+    mywords = []
+
+    # O(n) runtime
+    # space = O(1)
+    for j in range(len(mystr)):
+        if mystr[j] != ' ':
+            temp += mystr[j]
+        elif (mystr[j] == ' '):
+            mywords.append(temp)
+            mywords.append(' ')
+            temp = ''
+        else:
+            print('whoa!')
+    mywords.append(temp)
+
+    print('mywords = ', mywords)
+
+    # create new string
+    mynewstr = ''
+
+    # O(n) runtime
+    # space = O(n)
+    # step back from end to beginning
+    for i in range(len(mywords) - 1, -1, -1):
+        # make up the new string sentence
+        mynewstr += mywords[i]
+        #mynewstr += ' '
+
+    return mynewstr
+
+print(bf_reversewords("This is a girl"))
+
+print(===============)
+
 def reverseString(mystr):
     strlen = len(mystr)
 

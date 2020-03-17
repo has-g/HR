@@ -197,3 +197,34 @@ def findSum(target, L, sofar=None):
         return findSum(target-num, L[:i]+L[i+1:], sofar+[num])
 
 print(findSum(10, [1,3,11,123,5,7]))
+
+
+def sort_scores(unsorted_scores, highest_possible_score):
+    # create a list of actual index 1 to 100, each element is 0
+    score = [0] * (highest_possible_score + 1)
+
+    # nothing to do
+    if len(unsorted_scores) <= 1: return unsorted_scores
+
+    # create a count at the index of the score found
+    for i, j in enumerate(unsorted_scores):
+        print(i, ' ', j)
+        if score[j] == 0:
+            score[j] = 1
+        else:
+            score[j] += 1
+
+    #print(score)
+
+    # with highest value first
+    returnscore = []
+    for x in range(len(score) - 1, -1, -1):
+        if score[x] != 0:
+            for y in range(score[x]):
+                returnscore.append(x)
+
+    return returnscore
+
+
+
+print(sort_scores([20, 10, 30, 30, 10, 20], 100))
