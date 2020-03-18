@@ -28,6 +28,7 @@ print("fib_counter = ", fib_counter)
 def fib_m(n):
     global fib_counter
     fib_counter += 1
+
     # edge case -ve
     if n < 0: raise IndexError('number cannot be negative')
     # edge cases 0
