@@ -1,72 +1,74 @@
-
+# 0, 1, 1, 2, 3, 5, 8, 13, ....
+# f(n) = f(n-2) + f(n-1)
 #
-# 0, 1, 1, 2, 3, 5, 8
-# so fib(5) = fib(3) + fib(2)
-#    fib(n) = fib(n-1) + fib(n-2)
-
-# option1: just a recursive call will give us the value, check for negative, 0 and 1
-def fib(n):
-    if n < 0:
-        print('-ve value not allowed')
-        return None
-
-    if n == 0 or n == 1: return n
-
-    print('fib(' + str(n) + ') called')
-    return fib(n-2) + fib(n-1)
-
-print(fib(5))
-print(fib(-2))
-
-## for fib(5), we see fib(2) gets called thrice. One way is to store the value in a dictionary
-# dict lookup is optimal as it will be done in O(1) time and it can be returned not computed
-
-# two ways:
-# Option2 = store in global variable outside the def call
-
-
-
-mylist = {}
 
 def fib(n):
-    if n == 0 or n == 1:
+    global fib_counter
+    fib_counter += 1
+    # edge case -ve
+    if n < 0: raise IndexError('number cannot be negative')
+    # edge cases 0
+    if n <= 1:
         return n
-    # define global inside def to reference something outside of it
-    global mylist
-    a, b = 0, 0
-    print("mylist = ", mylist)
 
-    if n in mylist:
-        a = mylist[n]
+    return fib(n-1) + fib(n-2)
+
+fib_counter = 0
+print(fib(7))
+print("fib_counter = ", fib_counter)
+
+# total runtime is a binary tree due to recursion O(2**n)
+# it is a binary tree of depth 5 for f(5)
+# with memoization we can get to O(n) runtime and O(n) space
+# use a dictionary so that lookup is also done at O(1) time
+
+# two ways to do it - we can have a global variable declared and that accessed inside our function
+# or define it as a class and use a class variable
+
+def fib_m(n):
+    global fib_counter
+    fib_counter += 1
+    # edge case -ve
+    if n < 0: raise IndexError('number cannot be negative')
+    # edge cases 0
+    if n <= 1:
+        return n
+
+    global dDict
+    a = 0
+
+    if n in gDict:
+        return gDict[n]
     else:
-        mylist[n] = fib(n - 1) + fib(n - 2)
-        print('mylist inside = ', mylist)
+        a = fib_m(n-1) + fib_m(n-2)
+        gDict[n] = a
 
-    return mylist[n]
+    return a
 
-print(fib(6))
-#print(fib(2))
+gDict = {}
+fib_counter = 0
+print(fib_m(7))
+print("fib_counter = ", fib_counter)
 
 
-class Fibonnaci:
+class fib_class:
     def __init__(self):
-        self.mydict = {}
+        self.dict = {}
+        self.counter = 0
 
-    def fibo(self, n):
-
-        if n < 0:
-            raise IndexError('index is negative')
-
-        if n == 0 or n == 1:
+    def fib_class_fib(self, n):
+        self.counter += 1
+        #print("self.counter = ", self.counter)
+        if n < 0: raise IndexError('number cannot be negative')
+        if n <= 1:
             return n
 
-        if n in self.mydict:
-            a = self.mydict[n]
+        if n in self.dict:
+            return self.dict[n]
         else:
-            self.mydict[n] = self.fibo(n - 1) + self.fibo(n - 2)
-            print('mydict inside = ', self.mydict)
+            self.dict[n] = self.fib_class_fib(n-1) + self.fib_class_fib(n-2)
 
-        return self.mydict[n]
+        return self.dict[n]
 
-f = Fibonnaci()
-print(f.fibo(8))
+a = fib_class()
+print(a.fib_class_fib(2))
