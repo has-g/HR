@@ -64,83 +64,51 @@ def bf_reversewords(mystr):
 
 print(bf_reversewords("This is a girl"))
 
-print(===============)
+print('===============')
 
-def reverseString(mystr):
+# OPTION B
+# O(1) Space optimised, since string is manipulated in place
+
+def swapString(mystr, l, r):
+
+    while l < r:
+        mystr[l], mystr[r] = mystr[r], mystr[l]
+        l += 1
+        r -= 1
+
+myList = ['T', 'h', 'i', 's', ' ', 'i', 's', ' ', 'a', ' ', 'b', 'o', 'y']
+#swapString(mystr, 0, len(mystr) - 1)
+print("mystr = ", myList)
+print('===============')
+
+
+def reverseList(mystr):
     strlen = len(mystr)
 
-    # check for zero string
-    if strlen == 0: return -1
+    if strlen <= 1: return mystr
 
-    # check for single char
-    if strlen == 1: return mystr
+    # swap the original string
+    swapString(mystr, 0, strlen - 1)
+    print(myList)
 
-    tempword = ''
-    tempstr = ''
-
-    for i in range(strlen - 1, -1, -1):
-        if mystr[i] != ' ':
-            tempword += mystr[i]
+    # now step through and reverse those that are within spaces or end of list
+    l = 0
+    r = 0
+    for i in range(len(mystr) + 1):
+        if (i == len(mystr)):
+            #print('final l = ', l, ' r = ', i - 1)
+            swapString(mystr, l, i - 1)
+            break
+        elif (mystr[i] == ' '):
+            #print('l = ', l, ' r = ', i - 1)
+            swapString(mystr, l, i - 1)
+            l = i + 1
         else:
-            print('tempword = ', tempword)
-            for j in range(len(tempword) - 1, -1, -1):
-                #print(tempword[j])
-                tempstr += tempword[j]
+            pass
 
-            tempstr += ' '
-            tempword = ''
 
-    # handle for the final non-null value
-    print(tempword)
-    for k in range(len(tempword) - 1, -1, -1):
-        tempstr += tempword[k]
 
-    return tempstr
+reverseList(myList)
+print(myList)
+print('..........')
 
-def swapStringInPlace(mylist, lidx, ridx):
-    '''
-    # 0 and single value
-    if len(myL) == 0: return myL
-    if len(myL) == 1: return myL
-
-    # very important - this is in-place list manipulation
-    if ((lidx < 0) or (ridx > len(myL) - 1)): return
-    '''
-
-    print('received l = ', lidx, ' r = ', ridx)
-    while lidx < ridx:
-        mylist[lidx], mylist[ridx] = mylist[ridx], mylist[lidx]
-        lidx += 1
-        ridx -= 1
-
-def stringreverse(mylist):
-    # 0 and single value
-    if len(mylist) == 0: return
-    if len(mylist) == 1: return
-
-    mylistlen = len(mylist) - 1
-    swapStringInPlace(mylist, 0, mylistlen)
-    print(mylist)
-
-    # Complexity
-    # O(n) time and O(1) space!
-
-    lidx = 0
-
-    for i in range(len(mylist) + 1):
-        if (i == len(mylist) or (mylist[i] == ' ')):
-            swapStringInPlace(mylist, lidx, i - 1)
-            print(mylist)
-            lidx = i + 1
-
-#print(reverseString('This is a length'))
-mylist = ['T', 'h', 'i', 's', ' ', 'i', 's', ' ', 'a', ' ', 's', 't', 'r', 'i', 'n', 'g']
-stringreverse(mylist)
-print(mylist)
-'''
-swapStringInPlace(mylist, 6, 6)
-print(mylist)
-
-swapStringInPlace(mylist, 9, 10)
-print(mylist)
-'''
