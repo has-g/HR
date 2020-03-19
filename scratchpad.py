@@ -306,3 +306,26 @@ class fib_class:
 
 a = fib_class()
 print(a.fib_class_fib(2))
+
+
+def canjump(nums):
+    maximum_reachable_index = 0
+
+    for index, max_jump in enumerate(nums):
+        #print(f"{index}", end=' ')
+        if index > maximum_reachable_index:
+            print(f"> {maximum_reachable_index} and is unreachable.")
+            return False
+
+        #print(f"+ {max_jump} => {index + max_jump} : {maximum_reachable_index} ")
+        print(index, " + ", max_jump, " => ", index + max_jump, " : ", maximum_reachable_index)
+        if index + max_jump > maximum_reachable_index:
+            maximum_reachable_index = index + max_jump
+        #maximum_reachable_index = max(index + max_jump, maximum_reachable_index)
+
+    return True
+
+
+nums = [3,2,1,0,4]
+#nums = [2,3,1,1,5]
+print(canjump(nums))
