@@ -40,6 +40,8 @@ l2 = [1, 2, 5, 8, 12]
 # elif el(l) > el(r): then append to new list, r+=1
 # elif l1 list is exhausted l==len(l1) - 1: append l2 to new list, r+=1
 # elif l2 list is exhausted l==len(l2) - 1: append l1 to new list, l+=1
+
+Complexity = O(n) time and O(n) additional space, where nn is the number of items in the merged list.
 """
 
 def mergeSortedListsEfficient(l1, l2):
@@ -76,6 +78,8 @@ def mergeSortedListsEfficient(l1, l2):
 l1 = [1, 4, 6, 9]
 l2 = [1, 2, 5, 8, 12]
 print(mergeSortedListsEfficient(l1, l2))
+l3 = [4]
+print(mergeSortedListsEfficient(l1, l3))
 
 def mergeKlists(listofL):
     lenL = len(listofL)
